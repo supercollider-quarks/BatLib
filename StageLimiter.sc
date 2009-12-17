@@ -10,11 +10,11 @@ StageLimiter
 			lmFunc = 
 			{ 
 				{ 
-					activeSynth = Synth(\stageLimiter).play
-					(
-						RootNode(Server.default), 
-						addAction: \addToTail
-					) 
+					activeSynth = 
+						Synth(\stageLimiter,
+							target: RootNode(Server.default), 
+							addAction: \addToTail
+						);
 				}.defer(0.01) 
 			};
 			lmSynth = SynthDef(\stageLimiter, 
