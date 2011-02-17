@@ -4,7 +4,7 @@ StageLimiter
 	classvar lmSynth, lmFunc, activeSynth;
 	
 	*activate
-	{
+	{ |numChannels = 2|
 		fork
 		{
 			lmFunc = 
@@ -19,10 +19,10 @@ StageLimiter
 			};
 			lmSynth = SynthDef(\stageLimiter, 
 			{
-				var input = In.ar(0, 2);
+				var input = In.ar(0, numChannels);
 				input = Select.ar(CheckBadValues.ar(input, 0, 0), [input, DC.ar(0), DC.ar(0), input]);
 				ReplaceOut.ar(0, Limiter.ar(input)) ;
-			}).memStore;
+			}).add;
 			Server.default.sync;
 			lmFunc.value;
 			CmdPeriod.add(lmFunc);
